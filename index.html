@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+  <title>News Classifier</title>
+</head>
+
+<body>
+  <header class="container">
+    <hgroup>
+      <h1>News Classifier</h1>
+      <p>Classifies the news based on contents</p>
+    </hgroup>
+  </header>
+  <main class="container">
+    <div class="form-group
+      ">
+      <label for="news">News</label>
+      <textarea id="news" name="news" rows="5" required></textarea>
+    </div>
+    <button id="submit" type="submit" class="btn">Classify</button>
+    <progress id="progress"></progress>
+    <div id="result" class="mt-2"></div>
+  </main>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>
