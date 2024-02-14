@@ -8,6 +8,7 @@ const news = document.getElementById("news") as HTMLTextAreaElement;
 const classifyBtn = document.getElementById("submit");
 const result = document.getElementById("result");
 const progressBar = document.getElementById("progress") as HTMLElement;
+const totalDuration = document.getElementById("totalDuration") as HTMLElement;
 
 // Hide the progress bar
 progressBar.style.display = "none";
@@ -17,6 +18,7 @@ classifyBtn?.addEventListener("click", async () => {
   progressBar.style.display = "block";
   // Clear the result
   result!.innerText = "";
+  totalDuration!.innerText = "";
 
   const text = news.value;
   const classification = await getNewsClassification(text);
@@ -26,6 +28,8 @@ classifyBtn?.addEventListener("click", async () => {
   progressBar.style.display = "none";
   // Set the result
   result!.innerText = classification.response;
+  totalDuration!.innerText =
+    "Total Duration: " + nsToTime(classification.total_duration);
 });
 
 // GET the news classification result from the server
@@ -91,3 +95,24 @@ export const parseJSON = async function* <T = unknown>(
     }
   }
 };
+
+function nsToTime(duration: number) {
+  const durationInSeconds = BigInt(duration) / BigInt(1e9);
+  const dateObj = new Date(Number(durationInSeconds) * 1000);
+  const hours = dateObj.getUTCHours();
+  const minutes = dateObj.getUTCMinutes();
+  const seconds = dateObj.getUTCSeconds();
+
+  let timeString = '';
+  if (hours > 0) {
+    timeString += hours.toString().padStart(2, '0') + 'hr ';
+  }
+  if (minutes > 0) {
+    timeString += minutes.toString().padStart(2, '0') + 'min ';
+  }
+  if (seconds > 0) {
+    timeString += seconds.toString().padStart(2, '0') + 'sec';
+  }
+
+  return timeString.trim();
+}
